@@ -176,9 +176,9 @@ func paramsToValues(param *[]template.Parameter, values *map[string]interface{},
 			// Search and replace ${PARAM} with {{ .Values.param }}
 			raw := tf.Data
 			// Handle string format parameters
-			ns := strings.ReplaceAll(string(raw), fmt.Sprintf("${%s}", pm.Name), fmt.Sprintf("{{ .Values.%s }}", name))
+			ns := strings.ReplaceAll(string(raw), fmt.Sprintf("${%s}", pm.Name), fmt.Sprintf("{{.Values.%s}}", name))
 			// TODO Handle binary formatted data differently
-			ns = strings.ReplaceAll(ns, fmt.Sprintf("${{%s}}", pm.Name), fmt.Sprintf("{{ .Values.%s }}", name))
+			ns = strings.ReplaceAll(ns, fmt.Sprintf("${{%s}}", pm.Name), fmt.Sprintf("{{.Values.%s}}", name))
 			ntf := chart.File{
 				Name: tf.Name,
 				Data: []byte(ns),
