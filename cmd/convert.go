@@ -71,7 +71,7 @@ var (
 				},
 				Templates: templates,
 				Values:    values,
-				Raw:       []*chart.File{{ Name: "values.yaml", Data: []byte(valuesAsByte) }},
+				Raw:       []*chart.File{{Name: "values.yaml", Data: []byte(valuesAsByte)}},
 			}
 
 			if myChart.Metadata.Name == "" {
@@ -107,7 +107,7 @@ func objectToTemplate(objects *[]runtime.RawExtension, templateLabels *map[strin
 	o := *objects
 
 	m := make(map[string][]byte)
-	seperator := []byte{'-', '-','-','\n'}
+	seperator := []byte{'-', '-', '-', '\n'}
 
 	for _, v := range o {
 		var k8sR unstructured.Unstructured
@@ -137,17 +137,17 @@ func objectToTemplate(objects *[]runtime.RawExtension, templateLabels *map[strin
 			return fmt.Errorf(fmt.Sprintf("Failed to marshal Raw resource back to YAML\n%v\n", updatedJSON) + err.Error())
 		}
 
-		if m[k8sR.GetKind()] == nil  {
+		if m[k8sR.GetKind()] == nil {
 			m[k8sR.GetKind()] = data
 
 		} else {
-			newdata:=append(m[k8sR.GetKind()],seperator...)
-			data=append(newdata,data...)
+			newdata := append(m[k8sR.GetKind()], seperator...)
+			data = append(newdata, data...)
 			m[k8sR.GetKind()] = data
 		}
 	}
 
-    // Create chart using map
+	// Create chart using map
 	for k, v := range m {
 
 		name := "templates/" + strings.ToLower(k+".yaml")
@@ -169,7 +169,7 @@ func paramsToValues(param *[]template.Parameter, values *map[string]interface{},
 	v := *values
 
 	for _, pm := range p {
-		name := strings.ToLower(pm.Name)
+		name := pm.Name
 		log.Printf("Convert parameter %s to value .%s", pm.Name, name)
 
 		for i, tf := range t {
