@@ -189,8 +189,6 @@ func paramsToValues(param *[]template.Parameter, values *map[string]interface{},
 
 		if pm.Value != "" {
 			v[name] = pm.Value
-		} else {
-			v[name] = "# TODO: must define a default value for ." + name
 		}
 	}
 
